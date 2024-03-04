@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -81,10 +82,10 @@ export default function PrimarySearchAppBar() {
             <IconButton size="large" aria-label="show cart items" color="inherit">
               <ShoppingCartIcon />
             </IconButton>
-            <Button color="inherit" variant="outlined">Log in</Button>
-            <Button  color="inherit" variant="outlined" sx={{ ml: 1 }}>
+            <Link to={'/login'}  underline="none"> <Button color="inherit" variant="outlined">Log in</Button></Link>
+            <Link to={'/reg'}  underline="none"><Button  color="inherit" variant="outlined" sx={{ ml: 1 }}>
               Sign up
-            </Button>
+            </Button></Link>
           </Box>
         </Toolbar>
       </AppBar>
