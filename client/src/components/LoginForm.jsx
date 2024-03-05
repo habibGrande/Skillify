@@ -1,45 +1,56 @@
+// LoginForm.jsx
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, CssBaseline } from '@mui/material';
-import PrimarySearchAppBar from './PrimarySearchAppBar';
-import Footer from './Footer';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-
 const LoginForm = () => {
-  const [loginData, setLoginData] = useState({
-    email: '',
-    password: '',
-  });
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState();
+  const [emailError, setEmailError] = useState()
+  const [passwordError, setPasswordError] = useState()
+  const [isLogged, setIsLogged] = useState(false);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setLoginData({ ...loginData, [name]: value });
-  };
+
+  const user = {
+    email,
+    password
+  }
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(loginData); 
-    axios.post('http://localhost:8000/authors/new', {
-      name,
-  })
-  .then(res=>{console.log(res);
-  navigate("/authors");}) 
-  
-  .catch(err=>{
-      const errorResponse = err.response.data.errors; // Get the errors from err.response.data
-      const errorArr = []; // Define a temp error array to push the messages in
-      for (const key of Object.keys(errorResponse)) { // Loop through all errors and get the messages
-          errorArr.push(errorResponse[key].message)   
-      }
-      setErrors(errorArr);
-  }) 
-  
+    event.preventDefault()
+    console.log("hiiiiiiiiiiii")
+    axios.post('http://localhost:8000/api/users/login', user)
+      .then(res => {
+        localStorage.setItem('jwt', '124q3cdfgdraw3q244444w555cfgudtse57w34s5eu8cfise58');
+        console.log(user.email)
 
-}
+        axios.get(`http://localhost:8000/api/users/loggeduser?email=${email}`)
+        
+          .then(res => { localStorage.setItem("userid", res.data.user._id) });
+        localStorage.setItem('loggeduser', email);
+        setIsLogged(true);
+        navigate("/home");
+        //window.location.reload()
+      })
+      .catch(err => console.log(err))
+  }
+ 
 
+//   const LogoutHandle = () => {
+//     axios.get('http://localhost:8000/api/users/logout')
+//         .then(res => {
+//             localStorage.removeItem('jwt');
+//             localStorage.removeItem("userid");
+//             localStorage.removeItem('loggeduser');
+//             setIsLogged(false);
+//             navigate("/home");
+//             //window.location.reload()
+//         })
+//         .catch(err => console.log(err))
+// }
   return (
-    <>
-    <PrimarySearchAppBar/>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Typography variant="h5" component="h1" gutterBottom>
@@ -56,9 +67,21 @@ const LoginForm = () => {
           name="email"
           autoComplete="email"
           autoFocus
-          value={loginData.email}
-          onChange={handleChange}
+
+          onChange={(e) => {
+            setEmail(e?.target?.value);
+            if (e?.target?.value?.length == 0) {
+              setEmailError("*Email is required!")
+            }
+            else if (e?.target?.value?.length < 2) {
+              setEmailError("*Email must be at least 2 characters long!")
+            } else {
+              setEmailError()
+            }
+          }}
         />
+        <p style={{ color: "red", fontSize: "14px" }}>{emailError}</p>
+
         <TextField
           variant="outlined"
           margin="normal"
@@ -69,9 +92,27 @@ const LoginForm = () => {
           type="password"
           id="password"
           autoComplete="current-password"
-          value={loginData.password}
-          onChange={handleChange}
+          onChange={(e) => {
+            setPassword(e?.target?.value);
+            if (e?.target?.value?.length == 0) {
+              setPasswordError("*Password is required!")
+            }
+            else if (e?.target?.value?.length < 6) {
+              setPasswordError("*Password must be at least 6 characters long!")
+            } else {
+              setPasswordError()
+            }
+          }}
         />
+        <p style={{ color: "red", fontSize: "14px" }}>{passwordError}</p>
+        {/* {
+          isLogged ?
+            <Button onClick={LogoutHandle} fullWidth variant="contained" color="error">Logout</Button>
+            : (emailError || passwordError ?
+              <Button fullWidth disabled variant="contained" color="error">Login</Button>
+              : <Button onClick={handleSubmit} fullWidth variant="contained" color="primary">Login</Button>
+            )
+        } */}
         <Button
           type="submit"
           fullWidth
@@ -82,21 +123,7 @@ const LoginForm = () => {
           Login
         </Button>
       </form>
-      {/* <div className="helpers--auth-form-row--fFzdR">
-        <label className="ud-toggle-input-container ud-text-sm" htmlFor="checkbox--7">
-          Send me special offers, personalized recommendations, and learning tips.
-          <input name="subscribeToEmails" className="ud-sr-only ud-real-toggle-input" id="checkbox--7" type="checkbox" />
-          <svg aria-hidden="true" focusable="false" className="ud-icon ud-icon-xsmall ud-fake-toggle-input ud-fake-toggle-checkbox">
-            <use xlinkHref="#icon-tick"></use>
-          </svg>
-
-        </label>
-      </div> */}
-      <span>Dont  have an account? <a    href="/reg">Sign Up</a></span>
     </Container>
-
-    <Footer textColor="black" />
-    </>
   );
 };
 
