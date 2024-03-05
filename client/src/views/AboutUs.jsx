@@ -3,8 +3,8 @@ import PrimarySearchAppBar from '../components/PrimarySearchAppBar';
 import { Container, Typography, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Footer from '../components/Footer';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+// import { Carousel } from 'react-responsive-carousel';
+// import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import SocialMediaBottoms from '../components/SocialMediaBottoms';
 import ContactUs from '../components/ContactUs';
 
