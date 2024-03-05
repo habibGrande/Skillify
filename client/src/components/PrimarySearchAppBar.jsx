@@ -85,7 +85,7 @@ export default function PrimarySearchAppBar() {
             </IconButton>
             <Link to={'/login'}  underline="none"> <Button color="inherit" variant="outlined">Log in</Button></Link>
             <Link to={'/reg'}  underline="none"><Button  color="inherit" variant="outlined" sx={{ ml: 1 }}>
-              Sign up
+              Sign IN
             </Button></Link>
           </Box>
         </Toolbar>

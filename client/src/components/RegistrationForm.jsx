@@ -28,6 +28,7 @@ const RegistrationForm = (props) => {
       .catch(err => {
         console.error(err);
       });
+      navigate('/login');
   }
 
   const validateForm = () => {
@@ -159,7 +160,7 @@ const RegistrationForm = (props) => {
             Register
           </Button>
         </form>
-        <Link to="/login">Already have an account? Login</Link>
+        <Link to="/home">Already have an account? Login</Link>
       </Container>
       <Footer textColor="black" />
     </>
