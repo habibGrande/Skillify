@@ -1,5 +1,5 @@
 const { Course } = require('../models/course.models');
-
+const { User } = require('../models/user.models');
 module.exports.index = (request, response) => {
     response.json({
        message: "Hello World"

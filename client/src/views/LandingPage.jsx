@@ -6,6 +6,7 @@ import CourseCard from '../components/CourseCard';
 import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';
 import Footer from '../components/Footer'
+import Cookie from '../components/Cookie';
 
 const StyledContainer = styled('div')(({theme}) => ({
     backgroundImage: 'linear-gradient(to bottom, #FFF, black);'
@@ -88,6 +89,7 @@ function LandingPage() {
 
 
   return (
+    
     <StyledContainer >
 
         <PrimarySearchAppBar/>
@@ -98,7 +100,7 @@ function LandingPage() {
             buttonText="Sign in"
         />
 
-
+<Cookie/>
     <Typography variant="h3" component="h3" style={{textAlign: 'center', color: 'white', paddingBottom: 20}}>
     Explore Courses
     </Typography>
