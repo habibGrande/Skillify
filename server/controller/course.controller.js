@@ -1,6 +1,5 @@
 const { Course } = require('../models/course.models');
 
-
 module.exports.addCourse = (request, response) => {
     const { title, desc, image, price, notes } = request.body;
     

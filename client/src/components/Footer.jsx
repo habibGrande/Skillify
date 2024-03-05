@@ -31,7 +31,12 @@ const Footer = () => {
             </Grid>
             <Grid item xs={12} sm={3}>
               <Typography variant="h6" color="inherit" gutterBottom>
-                Contact Us
+              <Link href="/contactus" underline="none">Contact Us</Link> 
+              </Typography>
+              <Typography variant="body2" color="inherit" gutterBottom>
+                Email: contact@skillify.com<br />
+                Phone: +1234567890<br />
+                Fax: +1234567890
               </Typography>
               <Typography variant="body2" color="inherit" gutterBottom>
                 Email: contact@skillify.com<br />
