@@ -7,18 +7,14 @@ import Container from '@mui/material/Container';
 
 import SocialMediaBottoms from './SocialMediaBottoms';
 
-
-
-const Footer = ({ textColor }) => {
-
+const Footer = () => {
   return (
     <>
       <Box
         component="footer"
         sx={{
-
-          bgcolor: 'transparent',
-          color: textColor || 'white', 
+          // bgcolor: 'transparent',
+          color: 'black',
           pt: 8,
           pb: 6,
         }}
@@ -42,19 +38,20 @@ const Footer = ({ textColor }) => {
                 Phone: +1234567890<br />
                 Fax: +1234567890
               </Typography>
+              <Typography variant="body2" color="inherit" gutterBottom>
+                Email: contact@skillify.com<br />
+                Phone: +1234567890<br />
+                Fax: +1234567890
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={3}>
               <Typography variant="h6" color="inherit" gutterBottom>
-
                 Our Services
               </Typography>
               <Typography variant="body2" color="inherit" gutterBottom>
                 - Web Development Courses<br />
                 - Python Developer Path<br />
-                - Introduction to C#<br />=======
-
-                <Link href="/aboutus" underline="none"> About Us</Link>
-
+                - Introduction to C#<br />
               </Typography>
             </Grid>
             {/* Add more columns if needed */}
@@ -65,9 +62,6 @@ const Footer = ({ textColor }) => {
           </Typography>
         </Container>
       </Box>
-
-      <SocialMediaBottoms/>
-
     </>
   );
 };

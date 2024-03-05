@@ -9,8 +9,60 @@ import CourseCard from '../components/CourseCard';
 import AwardsExperience from '../components/AwardsExperience';
 import FAQSection from '../components/FAQSection';
 import Footer from '../components/Footer';
+<<<<<<< HEAD
 
+const StyledContainer = styled('div')({
+  backgroundColor: '#f0f6ff',
+  padding: '20px',
+});
 
+const ContentContainer = styled('div')({
+  maxWidth: '1200px',
+  margin: '0 auto',
+});
+
+const SectionTitle = styled(Typography)({
+  textAlign: 'center',
+  color: 'black',
+  padding: '20px 0',
+});
+=======
+>>>>>>> 6b6e9ca06076ca30207d4cb12d43ea45babd4e93
+
+const AwardsContainer = styled('div')({
+  marginTop: '50px',
+  marginBottom: '50px',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  borderRadius: '10px',
+  padding: '20px',
+});
+
+<<<<<<< HEAD
+const SectionWithShadow = styled('div')({
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  borderRadius: '10px',
+  padding: '20px',
+  marginBottom: '30px',
+});
+
+const FullWidthPrimarySearchAppBar = styled(PrimarySearchAppBar)({
+  width: '100%',
+});
+
+const LandingPage = () => {
+  const [courses, setCourses] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/courses')
+      .then(res => {
+        setCourses(res.data);
+        setLoaded(true);
+      })
+      .catch(err => console.error(err));
+  }, []);
+
+=======
 const StyledContainer = styled('div')({
   backgroundColor: '#f0f6ff',
   padding: '20px',
@@ -68,6 +120,7 @@ const LandingPage = () => {
       .catch(err => console.error(err));
   }, []);
 
+>>>>>>> 6b6e9ca06076ca30207d4cb12d43ea45babd4e93
   return (
     <StyledContainer>
       <FullWidthPrimarySearchAppBar />
