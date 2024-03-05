@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,9 +7,15 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Button from '@mui/material/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite'; // Import the Favorite icon
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import EmailIcon from '@mui/icons-material/Email';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -50,18 +56,84 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  color: 'inherit',
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.primary.main,
+  backgroundColor: alpha(theme.palette.primary.main, 0.2),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.primary.main, 0.3),
+  },
+  margin: '0 8px',
+}));
+
+const WhatsAppIconButton = styled(StyledIconButton)(({ theme }) => ({
+  color: '#25D366',
+}));
+
+const EmailIconButton = styled(StyledIconButton)(({ theme }) => ({
+  color: theme.palette.secondary.main, 
+}));
+
 export default function PrimarySearchAppBar() {
+  const [courses, setCourses] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/courses')
+      .then(res => {
+        setCourses(res.data);
+      })
+      .catch(err => console.error(err));
+  }, []);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleWhatsAppClick = () => {
+    // Replace the phone number with the desired number
+    window.open('https://wa.me/1234567890', '_blank');
+  };
+
   return (
-      <AppBar position="sticky" color="default" elevation={0} stuyle={{backgroundColor: 'transparent'}}>
-        <Toolbar>
+    <AppBar position="sticky" color="default" elevation={0} style={{ backgroundColor: 'transparent' }}>
+      <Toolbar>
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-            <img src={'/landingPageImages/siteLogo.png'} alt="Skillify Logo" style={{ marginRight: '10px', height: '40px' }} />
-            <Typography
-              variant="h4"
-              noWrap
-              component="div"
-              sx={{ display: { xs: 'none', sm: 'block' } }}
+          <img src={'/landingPageImages/siteLogo.png'} alt="Skillify Logo" style={{ marginRight: '10px', height: '40px' }} />
+          <Typography
+            variant="h4"
+            noWrap
+            component="div"
+            sx={{ display: { xs: 'none', sm: 'block' } }}
+          >
+            Skillify
+          </Typography>
+        </Box>
+        <Search>
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="Search for anything"
+            inputProps={{ 'aria-label': 'search' }}
+          />
+        </Search>
+        <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1, justifyContent: 'flex-end' }}>
+          <Link to="#" style={{ textDecoration: 'none' }}>
+            <Button
+              aria-controls="courses-menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+              sx={{ my: 2, color: 'black', display: 'block' }}
             >
+
               Skillify
             </Typography>
           </Box>
