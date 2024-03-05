@@ -133,58 +133,34 @@ export default function PrimarySearchAppBar() {
               onClick={handleClick}
               sx={{ my: 2, color: 'black', display: 'block' }}
             >
-              Courses
-            </Button>
-          </Link>
-          <Menu
-            id="courses-menu"
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            {courses.map(course => (
-              <MenuItem key={course.id} onClick={handleClose}>
-                {course.title}
-              </MenuItem>
-            ))}
-          </Menu>
-          <Link to="#" style={{ textDecoration: 'none' }}>
-            <Button sx={{ my: 2, color: 'black', display: 'block' }}>About Us</Button>
-          </Link>
-          <Link to="#" style={{ textDecoration: 'none' }}>
-            <Button sx={{ my: 2, color: 'black', display: 'block' }}>Contact Us</Button>
-          </Link>
-          <Link to='/helpandsupport' style={{ textDecoration: 'none' }}>
-            <Button sx={{ my: 2, color: 'black', display: 'block' }}>Help & Support</Button>
-          </Link>
-        </Box>
-        <Box sx={{ flexGrow: 0 }}>
-          <StyledIconButton size="large" aria-label="show cart items">
-            <ShoppingCartIcon />
-          </StyledIconButton>
-          <Link to='/helpandsupport' style={{ textDecoration: 'none' }}>
-            <WhatsAppIconButton size="large" aria-label="whatsapp" onClick={handleWhatsAppClick}>
-              <WhatsAppIcon />
-            </WhatsAppIconButton>
-          </Link>
-          <Link to='/helpandsupport' style={{ textDecoration: 'none' }}>
-            <EmailIconButton size="large" aria-label="email">
-              <EmailIcon />
-            </EmailIconButton>
-          </Link>
-          <IconButton size="large" aria-label="favorites" style={{ color: 'red' }}>
-            <FavoriteIcon />
-          </IconButton>
-          <Link to={'/login'} style={{ textDecoration: 'none' }}>
-            <StyledButton variant="outlined">Log in</StyledButton>
-          </Link>
-          <Link to={'/reg'} style={{ textDecoration: 'none' }}>
-            <StyledButton variant="contained">
-              Sign up
-            </StyledButton>
-          </Link>
-        </Box>
-      </Toolbar>
-    </AppBar>
+
+              Skillify
+            </Typography>
+          </Box>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search for anything"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1, justifyContent: 'flex-end' }}>
+            <Button sx={{ my: 2, color: 'black', display: 'block' }}>Courses</Button>
+            <Button sx={{ my: 2, color: 'black', display: 'block' }}>Teach on Skillify</Button>
+            <Button sx={{ my: 2, color: 'black', display: 'block' }}>Services</Button>
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
+            <IconButton size="large" aria-label="show cart items" color="inherit">
+              <ShoppingCartIcon />
+            </IconButton>
+            <Link to={'/login'}  underline="none"> <Button color="inherit" variant="outlined">Log in</Button></Link>
+            <Link to={'/reg'}  underline="none"><Button  color="inherit" variant="outlined" sx={{ ml: 1 }}>
+              Sign IN
+            </Button></Link>
+          </Box>
+        </Toolbar>
+      </AppBar>
   );
 }

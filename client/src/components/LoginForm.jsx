@@ -1,82 +1,156 @@
+
+
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Link } from 'react-router-dom';
-import backgroundImage from '../../public/landingPageImages/25.jpeg';
-const FormContainer = styled('div')(({ theme }) => ({
-  backgroundColor: '#F0F6FF',
-  padding: theme.spacing(4),
-  borderRadius: theme.spacing(2), 
-  boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', 
-  maxWidth: '600px', 
-  margin: '0 auto',
-}));
+import { TextField, Button, Container, Typography, CssBaseline, Grid } from '@mui/material';import { useNavigate, Link } from "react-router-dom";
+import axios from 'axios';
+
+
+import './LoginForm.css';
+
+
 
 const LoginForm = () => {
-  const [loginData, setLoginData] = useState({
-    email: '',
-    password: '',
-  });
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState();
+  const [emailError, setEmailError] = useState()
+  const [passwordError, setPasswordError] = useState()
+  const [isLogged, setIsLogged] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLoginData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission here
-    console.log(loginData);
-    // You can add code here to handle login logic
-  };
 
+  const user = {
+    email,
+    password
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    console.log("hiiiiiiiiiiii")
+    axios.post('http://localhost:8000/api/users/login', user)
+      .then(res => {
+        localStorage.setItem('jwt', '124q3cdfgdraw3q244444w555cfgudtse57w34s5eu8cfise58');
+        console.log(user.email)
+
+        axios.get(`http://localhost:8000/api/users/loggeduser?email=${email}`)
+
+
+          .then(res => { localStorage.setItem("userid", res.data.user._id) });
+        localStorage.setItem('loggeduser', email);
+        setIsLogged(true);
+        navigate("/home");
+        //window.location.reload()
+      })
+      .catch(err => console.log(err))
+  }
+
+
+  //   const LogoutHandle = () => {
+  //     axios.get('http://localhost:8000/api/users/logout')
+  //         .then(res => {
+  //             localStorage.removeItem('jwt');
+  //             localStorage.removeItem("userid");
+  //             localStorage.removeItem('loggeduser');
+  //             setIsLogged(false);
+  //             navigate("/home");
+  //             //window.location.reload()
+  //         })
+  //         .catch(err => console.log(err))
+  // }
   return (
-    <Box bgcolor="#F0F6FF" minHeight="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="center" style={{backgroundImage: `url(${backgroundImage})`}}>
-      <Link to="/home" style={{ textDecoration: 'none', color: 'inherit', marginBottom: '20px' }}>
-        <Typography variant="body1" style={{ display: 'flex', alignItems: 'center', color:'white' }}>
-          <ArrowBackIcon style={{color:'white'}} /> Back to Home
-        </Typography>
-      </Link>
-      <FormContainer>
-        <Typography variant="h5" gutterBottom>
-          Login
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Email Address"
-            name="email"
-            type="email"
-            value={loginData.email}
-            onChange={handleChange}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Password"
-            name="password"
-            type="password"
-            value={loginData.password}
-            onChange={handleChange}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-          >
-            Login
-          </Button>
-        </form>
-      </FormContainer>
-    </Box>
+
+    <>
+      <div className="login-container1">
+        <div className="background1-image" />
+        <div className="login-card">
+        <Grid container justifyContent="center" alignItems="center">
+        <img 
+          src={'/landingPageImages/siteLogo.png'}
+          alt="Skillify Logo"
+          style={{ height: '50px' }}
+        /> </Grid>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Grid container justifyContent="center" alignItems="center">
+            <Typography variant="h5" component="h1" gutterBottom>
+              Start Skillify
+            </Typography>
+          </Grid>
+            <form onSubmit={handleSubmit} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+
+                onChange={(e) => {
+                  setEmail(e?.target?.value);
+                  if (e?.target?.value?.length == 0) {
+                    setEmailError("*Email is required!")
+                  }
+                  else if (e?.target?.value?.length < 2) {
+                    setEmailError("*Email must be at least 2 characters long!")
+                  } else {
+                    setEmailError()
+                  }
+                }}
+              />
+              <p style={{ color: "red", fontSize: "14px" }}>{emailError}</p>
+
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={(e) => {
+                  setPassword(e?.target?.value);
+                  if (e?.target?.value?.length == 0) {
+                    setPasswordError("*Password is required!")
+                  }
+                  else if (e?.target?.value?.length < 6) {
+                    setPasswordError("*Password must be at least 6 characters long!")
+                  } else {
+                    setPasswordError()
+                  }
+                }}
+              />
+              <p style={{ color: "red", fontSize: "14px" }}>{passwordError}</p>
+              {/* {
+          isLogged ?
+            <Button onClick={LogoutHandle} fullWidth variant="contained" color="error">Logout</Button>
+            : (emailError || passwordError ?
+              <Button fullWidth disabled variant="contained" color="error">Login</Button>
+              : <Button onClick={handleSubmit} fullWidth variant="contained" color="primary">Login</Button>
+            )
+        } */}
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Login
+              </Button>
+            </form>
+          </Container>
+          <div className="register-link">
+            <p>Not a user?  <Link to={'/'}>register here</Link>.</p>
+          </div>
+
+        </div>
+      </div>
+    </>
   );
 };
 

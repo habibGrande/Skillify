@@ -10,6 +10,7 @@ import AwardsExperience from '../components/AwardsExperience';
 import FAQSection from '../components/FAQSection';
 import Footer from '../components/Footer';
 
+
 const StyledContainer = styled('div')({
   backgroundColor: '#f0f6ff',
   padding: '20px',
@@ -20,11 +21,13 @@ const ContentContainer = styled('div')({
   margin: '0 auto',
 });
 
+
 const SectionTitle = styled(Typography)({
   textAlign: 'center',
   color: 'black',
   padding: '20px 0',
 });
+
 
 const AwardsContainer = styled('div')({
   marginTop: '50px',
@@ -33,6 +36,7 @@ const AwardsContainer = styled('div')({
   borderRadius: '10px',
   padding: '20px',
 });
+
 
 const SectionWithShadow = styled('div')({
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
@@ -44,6 +48,12 @@ const SectionWithShadow = styled('div')({
 const FullWidthPrimarySearchAppBar = styled(PrimarySearchAppBar)({
   width: '100%',
 });
+
+<Cookie/>
+    <Typography variant="h3" component="h3" style={{textAlign: 'center', color: 'white', paddingBottom: 20}}>
+    Explore Courses
+    </Typography>
+
 
 const LandingPage = () => {
   const [courses, setCourses] = useState([]);

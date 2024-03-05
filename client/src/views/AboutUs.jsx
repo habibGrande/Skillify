@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 // import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import SocialMediaBottoms from '../components/SocialMediaBottoms';
 import ContactUs from '../components/ContactUs';
+import Cookie from '../components/Cookie';
 
 const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -19,12 +20,13 @@ const StyledContainer = styled('div')(({ theme }) => ({
 
 const CarouselContainer = styled('div')(({ theme }) => ({
   width: '100%',
-  maxWidth: '600px', 
+
 }));
 
 const AboutUs = () => {
   return (
     <>
+    <Cookie/>
       <StyledContainer>
         <PrimarySearchAppBar />
         <Container maxWidth="lg">
@@ -46,7 +48,7 @@ const AboutUs = () => {
               />
               <Typography variant="body1" gutterBottom>
                 Ayah Safi : Computer science Full stack developer
-                <p>....</p>
+
               </Typography>
             </div>
             <div>
@@ -61,8 +63,7 @@ const AboutUs = () => {
                 />
                 <Typography variant="body1" gutterBottom>
                   Mutaz   jaber  : Computer science Full stack developer
-                  <p>....</p>
-                </Typography>
+                  </Typography>
 
               </div>
               <div>
@@ -77,7 +78,7 @@ const AboutUs = () => {
                 />
                 <Typography variant="body1" gutterBottom>
                   M-Habib : Computer science Full stack developer
-                  <p>....</p>
+
                 </Typography>
               </div>
           </Carousel>

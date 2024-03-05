@@ -1,161 +1,177 @@
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Link } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+import { Box, TextField, Button, Container, Typography, CssBaseline, Alert } from '@mui/material';
+import Footer from './Footer';
+import PrimarySearchAppBar from './PrimarySearchAppBar';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 
-const FormContainer = styled('div')(({ theme }) => ({
-  backgroundColor: '#F0F6FF',
-  padding: theme.spacing(4),
-  borderRadius: theme.spacing(2), 
-  boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', 
-  maxWidth: '600px', 
-  margin: '0 auto',
-}));
+import { Grid, Paper } from '@mui/material';
+import './RegistrationForm.css';
 
-const RegistrationForm = () => {
+const RegistrationForm = (props) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  const [state, setState] = useState({
-    open: false,
-    vertical: 'top',
-    horizontal: 'right',
-  });
-  const { vertical, horizontal, open } = state;
 
-  const handleClick = (newState) => () => {
-    setState({ ...newState, open: true });
-  };
-
-  const handleClose = () => {
-    setState({ ...state, open: false });
-  };
-
-  const [registrationData, setRegistrationData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setRegistrationData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
-    if (registrationData.password !== registrationData.confirmPassword) {
-      setErrorMessage('Passwords do not match');
-      setState({ ...state, open: true });
-      return;
+    if (!validateForm()) return;
+
+    const user = { firstName, lastName, email, password, confirmPassword };
+
+    axios.post("http://localhost:8000/api/user", user)
+      .then(() => {
+        navigate('/login');
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    navigate('/login');
+  }
+
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = {};
+
+    if (!firstName) {
+      newErrors.firstName = "First Name is required!";
+      valid = false;
+    } else if (firstName.length < 3) {
+      newErrors.firstName = "First Name must be at least 3 characters long!";
+      valid = false;
     }
 
-    try {
-      const response = await fetch('http://localhost:8000/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(registrationData),
-      });
-      if (!response.ok) {
-        throw new Error('Registration failed');
-      }
-      // Registration successful
-      setErrorMessage('');
-      navigate("/home");
-    } catch (error) {
-      setErrorMessage('Registration failed');
-      setState({ ...state, open: true });
+    if (!lastName) {
+      newErrors.lastName = "Last Name is required!";
+      valid = false;
+    } else if (lastName.length < 2) {
+      newErrors.lastName = "Last Name must be at least 2 characters long!";
+      valid = false;
     }
+
+    if (!email) {
+      newErrors.email = "Email is required!";
+      valid = false;
+    } else if (!/^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/.test(email)) {
+      newErrors.email = "Please enter a valid email!";
+      valid = false;
+    }
+
+    if (!password) {
+      newErrors.password = "Password is required!";
+      valid = false;
+    } else if (password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters long!";
+      valid = false;
+    }
+
+    if (!confirmPassword) {
+      newErrors.confirmPassword = "Confirm Password is required!";
+      valid = false;
+    } else if (confirmPassword !== password) {
+      newErrors.confirmPassword = "Passwords do not match!";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
   };
 
   return (
-    <Box bgcolor="#F0F6FF" minHeight="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={open}
-        onClose={handleClose}
-        message={errorMessage}
-        key={vertical + horizontal}
-        autoHideDuration={5000}
-      />
-      <Link to="/home" style={{ textDecoration: 'none', color: 'inherit', marginBottom: '20px' }}>
-        <Typography variant="body1" style={{ display: 'flex', alignItems: 'center', color:'white' }}>
-          <ArrowBackIcon style={{color:'white'}} /> Back to Home
-        </Typography>
-      </Link>
-      <FormContainer>
-        <Typography variant="h5" gutterBottom>
-          Register
-        </Typography>
-        {errorMessage && <Typography color="error">{errorMessage}</Typography>}
-        <form onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            margin="normal"
-            label="First Name"
-            name="firstName"
-            value={registrationData.firstName}
-            onChange={handleChange}
+    <>
+      {/* <PrimarySearchAppBar /> */}
+      <div className="login-container">
+        <div className="background-image" />
+        <div className="login-card">
+      <Grid container justifyContent="center" alignItems="center" className="registration-container">
+        
+          <img
+            src={'/landingPageImages/siteLogo.png'}
+            alt="Skillify Logo"
+            style={{ height: '50px' }}
           />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Last Name"
-            name="lastName"
-            value={registrationData.lastName}
-            onChange={handleChange}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Email Address"
-            name="email"
-            type="email"
-            value={registrationData.email}
-            onChange={handleChange}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Password"
-            name="password"
-            type="password"
-            value={registrationData.password}
-            onChange={handleChange}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Confirm Password"
-            name="confirmPassword"
-            type="password"
-            value={registrationData.confirmPassword}
-            onChange={handleChange}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-          >
-            Register
-          </Button>
-        </form>
-      </FormContainer>
-    </Box>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            
+            <Typography variant="body1">
+              Unlock a world of learning opportunities. 
+            </Typography>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                fullWidth
+                id="firstName"
+                label="First Name"
+                autoFocus
+                margin="normal"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              {errors.firstName && <Alert severity="error">{errors.firstName}</Alert>}
+              <TextField
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="lname"
+                margin="normal"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+              {errors.lastName && <Alert severity="error">{errors.lastName}</Alert>}
+              <TextField
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                margin="normal"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              {errors.email && <Alert severity="error">{errors.email}</Alert>}
+              <TextField
+                type='password'
+                fullWidth
+                id="password"
+                label="Password"
+                name="password"
+                autoComplete="current-password"
+                margin="normal"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {errors.password && <Alert severity="error">{errors.password}</Alert>}
+              <TextField
+                type='password'
+                fullWidth
+                id="confirmPassword"
+                label="Confirm Password"
+                name="confirmPassword"
+                autoComplete="current-password"
+                margin="normal"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              {errors.confirmPassword && <Alert severity="error">{errors.confirmPassword}</Alert>}
+              <Button type="submit" fullWidth variant="contained" color="primary">
+                Register
+              </Button>
+            </form>
+            <div className="register-link">
+              <p className='mt-3'>already a user ? <Link to={'/login'}> Login here</Link>.</p>
+            </div>
+          </Container>
+       
+      </Grid>
+      </div>
+      </div>
+    </>
   );
 };
 
