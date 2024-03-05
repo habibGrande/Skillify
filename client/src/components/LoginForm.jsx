@@ -1,10 +1,12 @@
 
+
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, CssBaseline, Grid } from '@mui/material';import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 
 
 import './LoginForm.css';
+
 
 
 const LoginForm = () => {
@@ -14,6 +16,7 @@ const LoginForm = () => {
   const [emailError, setEmailError] = useState()
   const [passwordError, setPasswordError] = useState()
   const [isLogged, setIsLogged] = useState(false);
+
 
 
   const user = {
@@ -30,6 +33,7 @@ const LoginForm = () => {
         console.log(user.email)
 
         axios.get(`http://localhost:8000/api/users/loggeduser?email=${email}`)
+
 
           .then(res => { localStorage.setItem("userid", res.data.user._id) });
         localStorage.setItem('loggeduser', email);
@@ -54,6 +58,7 @@ const LoginForm = () => {
   //         .catch(err => console.log(err))
   // }
   return (
+
     <>
       <div className="login-container1">
         <div className="background1-image" />

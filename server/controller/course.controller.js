@@ -1,39 +1,34 @@
 const { Course } = require('../models/course.models');
-const { User } = require('../models/user.models');
-module.exports.index = (request, response) => {
-    response.json({
-       message: "Hello World"
-    });
-}
 
-module.exports.createCourse = (request, response) => {
-    const { title ,desc, date } = request.body;
+module.exports.addCourse = (request, response) => {
+    const { title, desc, image, price, notes } = request.body;
     
     Course.create({
         title,
-        lastName,
         desc,
-        date
+        image,
+        price,
+        notes
     })
-    .then(author => response.json(author))
-    .catch(err => response.status(400).json(err.errors));
+    .then(course => response.status(201).json({
+        message: 'Course added successfully',
+        course: course
+    }))
+    .catch(err => response.status(400).json({
+        message: 'Error adding course',
+        errors: err.errors
+    }));
 }
 
-module.exports.getCourse = (req, res) => {
-    Course.findOne({_id: req.params.id})
-    .then(course => res.json(course))
-    .catch(err => res.json(err));
+module.exports.getAllCourses = (req, res) => {
+    Course.find({})
+    .then(courses => res.json(courses))
+    .catch(err => res.status(400).json(err));
 }
 
 
-module.exports.updateCourse = (request, response) => {
-    User.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
-        .then(updatedCourse => response.json(updatedCourse))
-        .catch(err => response.status(400).json(err.errors));
-}
-
-module.exports.deleteCourse = (request, response) => {
-    Course.deleteOne({ _id: request.params.id })
-        .then(deleteConfirmation => response.json(deleteConfirmation))
+module.exports.getCourse = (request, response) => {
+    Course.findOne({_id: request.params.id})
+        .then(course => response.json(course))
         .catch(err => response.json(err))
 }
