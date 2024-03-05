@@ -10,14 +10,15 @@ const ContactUs = () => {
           <div className="contact-item">
             <div className="contact__title">Learners</div>
             <div className="contact__desc">
-              <p>Visit our <a href="https://support.udemy.com/hc/?type=learner" target="_blank" rel="noopener noreferrer">Help Center</a></p>
-              <p><a href="https://support.udemy.com/hc/articles/21521030699287-How-to-Contact-Udemy-Support" target="_blank" rel="noopener noreferrer">How to reach our support team</a></p>
+              <p>Visit our <a href="/aboutus" target="_blank" rel="noopener noreferrer">Help Center</a></p>
+              <p><a href="contactus" target="_blank" rel="noopener noreferrer">How to reach our support team</a></p>
             </div>
           </div>
           {/* Add other contact items here */}
         </div>
       </div>
     </section>
+    
   );
 };
 
