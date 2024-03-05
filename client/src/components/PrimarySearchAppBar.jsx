@@ -77,6 +77,7 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1, justifyContent: 'flex-end' }}>
             <Button sx={{ my: 2, color: 'black', display: 'block' }}>Courses</Button>
             <Button sx={{ my: 2, color: 'black', display: 'block' }}>Teach on Skillify</Button>
+            <Button sx={{ my: 2, color: 'black', display: 'block' }}>Services</Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <IconButton size="large" aria-label="show cart items" color="inherit">

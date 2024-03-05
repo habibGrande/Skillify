@@ -7,15 +7,14 @@ import Container from '@mui/material/Container';
 
 import SocialMediaBottoms from './SocialMediaBottoms';
 
-
-const Footer = () => {
+const Footer = ({ textColor }) => {
   return (
     <>
       <Box
         component="footer"
         sx={{
           bgcolor: 'transparent',
-          color: 'white',
+          color: textColor || 'white', 
           pt: 8,
           pb: 6,
         }}
@@ -38,7 +37,7 @@ const Footer = () => {
             </Grid>
             <Grid item xs={12} sm={3}>
               <Typography variant="h6" color="inherit" gutterBottom>
-                Contact Us
+              <Link href="/contactus" underline="none">Contact Us</Link> 
               </Typography>
               <Link href="#" color="inherit" underline="none">
                 Introduction to C
@@ -52,7 +51,7 @@ const Footer = () => {
             </Grid>
             <Grid item xs={12} sm={3}>
               <Typography variant="h6" color="inherit" gutterBottom>
-              <Link href="/aboutus"  underline="none"> About Us</Link>
+                <Link href="/aboutus" underline="none"> About Us</Link>
               </Typography>
               <Link href="#" color="inherit" underline="none">
                 C# Intermediate
@@ -67,9 +66,8 @@ const Footer = () => {
             {/* ... more columns */}
           </Grid>
         </Container>
-        </Box>
+      </Box>
       <SocialMediaBottoms/>
-      
     </>
   );
 };
