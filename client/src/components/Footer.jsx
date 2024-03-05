@@ -7,15 +7,14 @@ import Container from '@mui/material/Container';
 
 import SocialMediaBottoms from './SocialMediaBottoms';
 
-
 const Footer = () => {
   return (
     <>
       <Box
         component="footer"
         sx={{
-          bgcolor: 'transparent',
-          color: 'white',
+          // bgcolor: 'transparent',
+          color: 'black',
           pt: 8,
           pb: 6,
         }}
@@ -24,52 +23,40 @@ const Footer = () => {
           <Grid container spacing={4} style={{ justifyContent: 'center' }}>
             <Grid item xs={12} sm={3}>
               <Typography variant="h6" color="inherit" gutterBottom>
-                Learning paths
+                About Us
               </Typography>
-              <Link href="#" color="inherit" underline="none">
-                Web Development
-              </Link>
-              <br />
-              <Link href="#" color="inherit" underline="none">
-                Python Developer
-              </Link>
-              <br />
-              {/* ... more links */}
+              <Typography variant="body2" color="inherit" gutterBottom>
+                We are a learning platform passionate about providing high-quality education. Skillify is our final project for MERN stack development, created by a group of enthusiastic developers.
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={3}>
               <Typography variant="h6" color="inherit" gutterBottom>
                 Contact Us
               </Typography>
-              <Link href="#" color="inherit" underline="none">
-                Introduction to C
-              </Link>
-              <br />
-              <Link href="#" color="inherit" underline="none">
-                Introduction to Python
-              </Link>
-              <br />
-              {/* ... more links */}
+              <Typography variant="body2" color="inherit" gutterBottom>
+                Email: contact@skillify.com<br />
+                Phone: +1234567890<br />
+                Fax: +1234567890
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={3}>
               <Typography variant="h6" color="inherit" gutterBottom>
-              <Link href="/aboutus"  underline="none"> About Us</Link>
+                Our Services
               </Typography>
-              <Link href="#" color="inherit" underline="none">
-                C# Intermediate
-              </Link>
-              <br />
-              <Link href="#" color="inherit" underline="none">
-                Python Intermediate
-              </Link>
-              <br />
-              {/* ... more links */}
+              <Typography variant="body2" color="inherit" gutterBottom>
+                - Web Development Courses<br />
+                - Python Developer Path<br />
+                - Introduction to C#<br />
+              </Typography>
             </Grid>
-            {/* ... more columns */}
+            {/* Add more columns if needed */}
           </Grid>
+          <SocialMediaBottoms />
+          <Typography variant="body2" color="inherit" align="center">
+            &copy; Skillify 2024
+          </Typography>
         </Container>
-        </Box>
-      <SocialMediaBottoms/>
-      
+      </Box>
     </>
   );
 };
