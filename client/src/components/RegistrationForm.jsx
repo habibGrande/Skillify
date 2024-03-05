@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import {Box, TextField, Button, Container, Typography, CssBaseline, Alert } from '@mui/material';
+import { Box, TextField, Button, Container, Typography, CssBaseline, Alert } from '@mui/material';
 import Footer from './Footer';
 import PrimarySearchAppBar from './PrimarySearchAppBar';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+
+import { Grid, Paper } from '@mui/material';
+import './RegistrationForm.css';
 
 const RegistrationForm = (props) => {
   const [firstName, setFirstName] = useState("");
@@ -12,7 +15,6 @@ const RegistrationForm = (props) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
-
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -28,7 +30,7 @@ const RegistrationForm = (props) => {
       .catch(err => {
         console.error(err);
       });
-      navigate('/login');
+    navigate('/login');
   }
 
   const validateForm = () => {
@@ -81,88 +83,94 @@ const RegistrationForm = (props) => {
 
   return (
     <>
-      <PrimarySearchAppBar />
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box sx={{ mb: 4 }}>
-          <Typography variant="h4" component="h1" gutterBottom>
-            Join Skillify Now!
-          </Typography>
-          <Typography variant="body1">
-            Unlock a world of learning opportunities with Skillify.
-          </Typography>
-        </Box>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            autoComplete="fname"
-            name="firstName"
-            fullWidth
-            id="firstName"
-            label="First Name"
-            autoFocus
-            margin="normal"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+      {/* <PrimarySearchAppBar /> */}
+      <div className="login-container">
+        <div className="background-image" />
+        <div className="login-card">
+      <Grid container justifyContent="center" alignItems="center" className="registration-container">
+        
+          <img
+            src={'/landingPageImages/siteLogo.png'}
+            alt="Skillify Logo"
+            style={{ height: '50px' }}
           />
-          {errors.firstName && <Alert severity="error">{errors.firstName}</Alert>}
-
-          <TextField
-            fullWidth
-            id="lastName"
-            label="Last Name"
-            name="lastName"
-            autoComplete="lname"
-            margin="normal"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-          {errors.lastName && <Alert severity="error">{errors.lastName}</Alert>}
-
-          <TextField
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            margin="normal"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          {errors.email && <Alert severity="error">{errors.email}</Alert>}
-
-          <TextField
-            type='password'
-            fullWidth
-            id="password"
-            label="Password"
-            name="password"
-            autoComplete="current-password"
-            margin="normal"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {errors.password && <Alert severity="error">{errors.password}</Alert>}
-
-          <TextField
-            type='password'
-            fullWidth
-            id="confirmPassword"
-            label="Confirm Password"
-            name="confirmPassword"
-            autoComplete="current-password"
-            margin="normal"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-          {errors.confirmPassword && <Alert severity="error">{errors.confirmPassword}</Alert>}
-
-          <Button type="submit" fullWidth variant="contained" color="primary">
-            Register
-          </Button>
-        </form>
-        <Link to="/home">Already have an account? Login</Link>
-      </Container>
-      <Footer textColor="black" />
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            
+            <Typography variant="body1">
+              Unlock a world of learning opportunities. 
+            </Typography>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                fullWidth
+                id="firstName"
+                label="First Name"
+                autoFocus
+                margin="normal"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              {errors.firstName && <Alert severity="error">{errors.firstName}</Alert>}
+              <TextField
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="lname"
+                margin="normal"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+              {errors.lastName && <Alert severity="error">{errors.lastName}</Alert>}
+              <TextField
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                margin="normal"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              {errors.email && <Alert severity="error">{errors.email}</Alert>}
+              <TextField
+                type='password'
+                fullWidth
+                id="password"
+                label="Password"
+                name="password"
+                autoComplete="current-password"
+                margin="normal"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {errors.password && <Alert severity="error">{errors.password}</Alert>}
+              <TextField
+                type='password'
+                fullWidth
+                id="confirmPassword"
+                label="Confirm Password"
+                name="confirmPassword"
+                autoComplete="current-password"
+                margin="normal"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              {errors.confirmPassword && <Alert severity="error">{errors.confirmPassword}</Alert>}
+              <Button type="submit" fullWidth variant="contained" color="primary">
+                Register
+              </Button>
+            </form>
+            <div className="register-link">
+              <p className='mt-3'>already a user ? <Link to={'/login'}> Login here</Link>.</p>
+            </div>
+          </Container>
+       
+      </Grid>
+      </div>
+      </div>
     </>
   );
 };
