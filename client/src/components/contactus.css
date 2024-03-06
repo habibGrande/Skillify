@@ -1,13 +1,14 @@
 .contactus {
-  /* min-height: 100vh; */
+  min-height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('https://media.discordapp.net/attachments/1212842028753494046/1214450352544292864/e-learning-and-online-education-for-student-and-university-concept-graphic-interface-showing-technology-of-digital-training-course-for-people-to-do-r-2B1YMXF.jpg?ex=65f92807&is=65e6b307&hm=42ad3aeb54643fc1dbce3e53f8b791085cab1de6f09f6a00b385ede303c2c2c0&=&format=webp&width=1034&height=662');
   background-size: cover;
   background-position: center;
   position: relative;
+  background-image: url('https://cdn.discordapp.com/attachments/1212842028753494046/1214724275274125372/IMG_20240306_015957.jpg?ex=65fa2723&is=65e7b223&hm=1fd4a932e78fbcdeed0442ef3f7dbbc80f60854bb681c317ebaa034b1b9defd6&');
+  
 }
 
 .contactus::after {
@@ -17,7 +18,10 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.col-1 , .col-2, .co-3 {
+  width: 33%;
 }
 
 section {
@@ -27,12 +31,16 @@ section {
   padding-bottom: 50px;
 }
 
-.container {
+.container1 {
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
   padding-left: 20px;
   padding-right: 20px;
+  display: flex;
+  justify-content: space-around;
+
+
 }
 
 .section-header {
@@ -49,6 +57,9 @@ section {
 
 .section-header p {
   color: #FFF;
+  font-size: larger;
+  width:  80%   ;
+  margin-left: 10% ;
 }
 
 .row {
@@ -101,14 +112,14 @@ section {
 }
 
 .contact-info-content h4 {
-  color: red;
-  font-size: 1.4em;
+  color: rgb(66, 242, 255);
+  font-size: 2em;
   margin-bottom: 5px;
 }
 
 .contact-info-content p {
   color: #FFF;
-  font-size: 1em;
+  font-size: 1.5em;
 }
 
 .contact-form {
